@@ -1,2 +1,2 @@
-# HDDM_modelling
- HDDM for the COBRA project
+# Garrett et al., 2022 project repo
+ 
