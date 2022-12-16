@@ -31,14 +31,14 @@ packages.check <- lapply(
 
 ### behavioural data ####
 dat <- read_excel(paste0('PATHTOEXCEL'),"WinVars4Vivien.xlsx") # get path to winzorised variables
-savePath <- '/Users/Vivien/Documents/Projects/MPI/LNDG/cobra'#'SAVEPATH' # path to folder to save all plots
+savePath <- 'SAVEPATH'# path to folder to save all plots
 
 dat <- melt(dat, id.vars = c("ID"), variable.name = "nback") # transpose data
 dat$nback <- as.factor(dat$nback) # n-back level as factor
 dat$ID <- as.factor(dat$ID) # n-back level as factor
 
 ### SD Bold Data ####
-plsDat <- readMat('/Users/Vivien/Documents/Projects/MPI/LNDG/cobra/masked_taskPLSN152_allNets.mat')
+plsDat <- readMat('masked_taskPLSN152_allNets.mat')
 plsDat <- as.data.frame(plsDat)
 plsDat <- plsDat*-1
 plsDat$ID <- rownames(plsDat)
@@ -48,7 +48,7 @@ plsDat$nback <- as.factor(plsDat$nback) # n-back level as factor
 plsDat$ID <- as.factor(plsDat$ID) # n-back level as factor
 
 ### PCAdim Data ####
-pcaDat <- readMat("/Users/Vivien/Documents/Projects/MPI/LNDG/cobra/CobraN152_PCAdim_temp_allNets.mat")
+pcaDat <- readMat("CobraN152_PCAdim_temp_allNets.mat")
 pcaDat$ID <- NULL
 pcaDat <- as.data.frame(pcaDat)
 pcaDat$ID <- rownames(pcaDat)
@@ -212,38 +212,6 @@ plot.main <- function(dat,var,colPlot) {
   nback2 = dat_tmp$value[dat_tmp$nback == unique(dat_tmp$nback)[1]]
   nback3 = dat_tmp$value[dat_tmp$nback == unique(dat_tmp$nback)[2]]
   print(t.test(nback2, nback3, paired = TRUE, alternative = "two.sided"))
-
-  # mean_id_summary <- aggregate(value ~ nback+ID, dat_tmp, function(x) c(mean = mean(x)))
-  # mean_id <- aggregate(value ~ ID, mean_id_summary, function(x) c(mean = mean(x)))
-  # 
-  # nback_summary <- aggregate(value ~ nback, mean_id_summary, function(x) c(mean = mean(x)))
-  # nback_23=numeric(0)
-  # nback_23= matrix(data=0,nrow=length(unique(dat_tmp$ID)),ncol=length(unique(dat_tmp$nback)))
-  # 
-  # for (i in 1:length(unique(dat_tmp$ID))) {
-  #   id = unique(dat_tmp$ID)[i]
-  #   
-  #   for (n in 1:length(unique(dat_tmp$nback))) {
-  #     cond = unique(dat_tmp$nback)[n]
-  #     
-  #     old_value = mean_id_summary$value[(mean_id_summary$nback == cond) & (mean_id_summary$ID == id)] 
-  #     subject_mean = mean_id$value[(mean_id$ID == id)]
-  #     grand_average = nback_summary$value[nback_summary$nback == cond]
-  #     nback_23[i,n] <- old_value-subject_mean+grand_average
-  #   }
-  # }
-  # nback_23 <- as.data.frame(nback_23)
-  # colnames(nback_23)<-c("nback2","nback2")
-  # mean(nback_23[,1])
-  # mean(nback_23[,2])
-  # 
-  # mean(dat_tmp$value[dat_tmp$nback=="BS.BGHAT.Morel.1"])
-  # mean(dat_tmp$value[dat_tmp$nback=="BS.BGHAT.Morel.2"])
-  # 
-  # sd_col = apply(nback_23, 2, sd)
-  # 
-  # 
-  # print(nback_summary)
   
   # plot
   plot <- dat_tmp %>% 
