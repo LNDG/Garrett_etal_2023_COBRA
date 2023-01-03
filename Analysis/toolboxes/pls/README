@@ -1,0 +1,9 @@
+An implementation of partial least squares analysis for neuroimaging data in Matlab. The package has some quirks in the graphical user interface in R2014b and above which have been partially ironed out in this fork.
+
+For information on the package:
+
+https://www.rotman-baycrest.on.ca/index.php?section=84
+
+For a discussion of the method:
+
+McIntosh, A. R., & Lobaugh, N. J. (2004). Partial least squares analysis of neuroimaging data: applications and advances. NeuroImage, 23, S250–S263. http://doi.org/10.1016/j.neuroimage.2004.07.020
