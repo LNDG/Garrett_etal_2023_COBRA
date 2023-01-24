@@ -1,7 +1,7 @@
 #!/bin/bash
 
 WD="BASE"
-PLSDir="${WD}/PLS"
+PLSDir="${WD}/3_PLS"
 
 
 # ID

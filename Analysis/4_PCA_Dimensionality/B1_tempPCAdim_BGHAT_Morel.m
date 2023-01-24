@@ -1,18 +1,17 @@
-function D_2_tempPCAdim_BGHAT_Morel(ID)
+function B1_tempPCAdim_BGHAT_Morel(ID)
 % this script calculates the dimensionality within a combined BGHAT (basal
 % ganglia) / Morel (thalamus) mask with the help of temporal PCA
 
 
-%% IDs
-
-%N162 without C033
-ID={'001', '003', '006', '007', '008', '009', '010', '013', '014', '015', '016', '017', '018', '019', '021', '022', '024', '025', '027', '028', '029', '030', '032', '034', '035', '036', '038', '040', '041', '043', '045', '046', '049', '050', '051', '052', '053', '056', '057', '058', '059', '060', '061', '063', '064', '065', '066', '067', '068', '069', '071', '072', '073', '074', '075', '076', '079', '080', '081', '082', '084', '085', '087', '090', '091', '092', '093', '094', '095', '097', '099', '104', '105', '106', '107', '108', '109', '110', '112', '113', '114', '116', '117', '118', '119', '120', '121', '122', '123', '126', '127', '130', '131', '133', '134', '135', '136', '137', '138', '139', '140', '143', '144', '146', '148', '149', '150', '152', '153', '154', '155', '156', '158', '159', '160', '161', '162', '163', '164', '165', '168', '169', '170', '172', '173', '174', '176', '177', '178', '180', '181', '183', '184', '185', '186', '187', '188', '190', '191', '192', '193', '194', '195', '196', '197', '198', '199', '200', '201', '203', '204', '206', '208', '210', '211', '212', '213', '214', '216', '217', '219', '220'};
+%% 
+%IDs
+ID = readtable("/SharableData/SharedData_Garrett_etal_Neuron_FINAL.csv"); ID = table2array(ID(:,1));
 
 BASEPATH='BASE';
 
 %NIIPATH=([BASEPATH, 'imaging_files/nback/preproc/']);
-PLSPATH=([BASEPATH, '/PLS/']);
-MASKPATH=([BASEPATH,'/COBRA_masks-selected/']);
+PLSPATH=([BASEPATH, '/3_PLS/']);
+MASKPATH=([BASEPATH,'/1_Preprocessing/Masks/']);
 
 
 %% create mask: Morel and BGHAT regions combined in one nifti
@@ -31,18 +30,19 @@ nifti.img=BGHAT_Morel;
 save_nii(nifti, [MASKPATH, 'BGHAT_Morel_combined.nii']);
 
 %get st_coords
-load([BASEPATH, '/PLS/SD_2mm/SD_C001_2mm_BfMRIsessiondata.mat'], 'st_coords');
+load([BASEPATH, '/3_PLS/SD_2mm/SD_C001_2mm_BfMRIsessiondata.mat'], 'st_coords');
 %calculate BGHAT/Morel coords in st_coord space
 BGHAT_st_coords=find(BGHAT(st_coords));
 Morel_st_coords=find(Morel(st_coords));
 BGHAT_Morel_coords=unique(vertcat(BGHAT_st_coords, Morel_st_coords));
 
+%%%%%%%%%%%%%%%%%%%%%%
 %% calcualte PCAdim %%
 %%%%%%%%%%%%%%%%%%%%%%
 
 modality='temporal';
 
-SAVEPATH = ([BASEPATH,'/dimensionality_nback/', modality, '_PCA/BGHAT_Morel/']);
+SAVEPATH = ([BASEPATH,'/4_PCA_Dimensionality/', modality, '_PCA/BGHAT_Morel/']);
 NIFTIPATH=([BASEPATH,'/preproc_nback/preproc/C']);
 VOX='2';
 conditions = {'back1','back2','back3'};%set all relevant condition names
@@ -50,7 +50,7 @@ conditions = {'back1','back2','back3'};%set all relevant condition names
 
 for i=1:length(ID)
       clearvars a;
-      a = load([BASEPATH, '/PLS/scripts/mean_data/C',ID{i},'_nback_', VOX, 'mm_BfMRIsessiondata.mat']);%this loads a subject's sessiondata file.
+      a = load([BASEPATH, '/3_PLS/mean_data/C',ID{i},'_nback_', VOX, 'mm_BfMRIsessiondata.mat']);%this loads a subject's sessiondata file.
 
       % intialize cond specific scan count for populating cond_data
       clear count cond_data block_scan coeff block scores Dimensions EXPLAINED;
@@ -102,7 +102,7 @@ for i=1:length(ID)
    
       % load nifti file for 'this run
       %fname = ([a.session_info.run(run).data_path, '/', a.session_info.run(run).data_files{1}, '.gz']);
-      fname = ([NIFTIPATH, ID{i}, '/C', ID{i}, '_nback_FEAT_detrend_filt_FIX_MNI2mm.nii.gz']);
+      fname = ([NIFTIPATH, ID{i}, '/', ID{i}, '_nback_FEAT_detrend_filt_FIX_MNI2mm.nii.gz']);
       nii = load_nii(fname); %(x by y by z by time)
       img = double(reshape(nii.img,[],size(nii.img,4)));% 4 here refers to 4th dimension in 4D file....time.
       img = img(st_coords,:);%this command constrains the img file to only use final_coords, which is common across subjects. 
@@ -164,8 +164,8 @@ for i=1:length(ID)
       Var_explained_1stfactor(1, :)=explained_var;
       disp([num2str(explained_var)]);
           
-     save([SAVEPATH, 'C', ID{i}, '_PCAdim_', modality, '_BGHAT_Morel.mat'], 'Dimensions', 'Var_explained_1stfactor');%note that EXPLAINED here is from typical, unrotated solution. 
-     disp(['saved as ', SAVEPATH, 'C', ID{i}, '_PCAdim_', modality, '_BGHAT_Morel.mat']);
+     save([SAVEPATH, ID{i}, '_PCAdim_', modality, '_BGHAT_Morel.mat'], 'Dimensions', 'Var_explained_1stfactor');%note that EXPLAINED here is from typical, unrotated solution. 
+     disp(['saved as ', SAVEPATH, ID{i}, '_PCAdim_', modality, '_BGHAT_Morel.mat']);
  
   end
 end

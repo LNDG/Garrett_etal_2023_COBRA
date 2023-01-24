@@ -1,4 +1,4 @@
-E3_mask_taskPLSresult_yeo
+F2_mask_taskPLSresult_yeo
 % this script loads the full PLS model, masks the brain saliences to only
 % relevant regions and re-calculateds the latent brain scores per subject
 % within only these regions 
@@ -21,7 +21,7 @@ SAVEPATH= ([PLSPATH, 'taskPLS_N156_result_masked/']);
 conditions = {'back1','back2','back3'};%set all relevant condition names
 
 % load subject file for common coords
-load([PLSPATH, 'SD_C200_BfMRIsessiondata.mat'],'st_coords'); %load st_coords
+load([PLSPATH, 'SD_BfMRIsessiondata.mat'],'st_coords'); %load st_coords
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Yeo 7 networks %%%%%%%%%%%%%%
@@ -46,7 +46,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 for i=1:length(ID)
     for k=1:length(conditions)
-        load([PLSPATH, 'SD_C', ID{i}, '_BfMRIsessiondata.mat'], 'st_datamat'); 
+        load([PLSPATH, 'SD_', ID{i}, '_BfMRIsessiondata.mat'], 'st_datamat'); 
         
         SD=st_datamat(k, coords{1}); % for all three conditions k
         BS_net1(i, k)=mean(SD);% average SD for all those voxels
@@ -85,7 +85,7 @@ end
 save([SAVEPATH, 'masked_taskPLSN156_Yeo7.mat'], 'BS_net1', 'BS_net2', 'BS_net3', 'BS_net4', 'BS_net5', 'BS_net6','BS_net7');
 
 %% Check if they look sane: %%%%%
-nii=S_load_nii_2d([BASEPATH,'1_Preprocessing_fMRI/Standards/MNI152_T1_2mm_brain.nii.gz']);
+nii=S_load_nii_2d([BASEPATH,'1_Preprocessing/Standards/MNI152_T1_2mm_brain.nii.gz']);
 
 for k=1:7 %7 nets
 

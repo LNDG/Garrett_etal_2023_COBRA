@@ -3,16 +3,15 @@
 BASEPATH='BASE';
 PLSPATH=([BASEPATH, '/3_PLS/']);
 
-% ID
+%ID
 ID = readtable("SharableData/SharedData_Garrett_etal_Neuron_FINAL.csv"); ID = ID(:,1);
 
 load([PLSPATH, '/toolboxes/PLS_batch_matrix_input_savev7.3/templates/behav_BfMRIanalysis.mat']); %load MAT template 
 
 %load PCAdim
 %temporal
-load([PLSPATH, '/Dimensionality_nback/N181_PCAcorr_dimensionality_temporal.mat']);
+load([BASEPATH, '/4_PCA_Dimensionality/N181_PCAcorr_dimensionality_temporal.mat']);
 
-%oldID = erase(subjID,'C'); %replace Cs by space
 permutations=1000; 
 bootstrap=1000; 
 

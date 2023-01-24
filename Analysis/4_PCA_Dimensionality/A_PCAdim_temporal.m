@@ -1,4 +1,4 @@
-function B_PCAdim_temporal(ID)
+function A_PCAdim_temporal(ID)
 
 %script for finding dimensionality of 90% of total PCA variance
 %within a set of variables.
@@ -9,17 +9,16 @@ function B_PCAdim_temporal(ID)
 addpath(genpath('/toolboxes/preprocessing_tools')); 
 addpath(genpath('/toolboxes/NIFTI_toolbox'));
 
-% IDs
+%IDs
 ID = readtable("/SharableData/SharedData_Garrett_etal_Neuron_FINAL.csv"); ID = table2array(ID(:,1));
 
 %% Paths
 BASEPATH = 'BASE';
-
-SAVEPATH = ([BASEPATH,'/dimensionality_nback/temporal_PCA/']);
-NIFTIPATH=([BASEPATH, '/preproc_nback/preproc/C']);
+SAVEPATH = ([BASEPATH,'/4_PCA_Dimensionality/temporal_PCA/']);
+NIFTIPATH=([BASEPATH, '/1_Preprocessing/data/']);
 
 %get st_coords
-load([BASEPATH, '/PLS/scripts/2mm_GM_commoncoordsN181.mat']);
+load([BASEPATH, '/3_PLS/2mm_GM_commoncoordsN181.mat']);
 st_coords=final_coords;
 VOX='2';
 conditions = {'back1','back2','back3'};%set all relevant condition names
@@ -27,7 +26,7 @@ conditions = {'back1','back2','back3'};%set all relevant condition names
 
 for i = 1:numel(ID) 
 clear a;
-  a = load([BASEPATH, '/PLS/mean_data/C',ID{i},'_nback_', VOX, 'mm_BfMRIsessiondata.mat']);%this loads a subject's sessiondata file.
+  a = load([BASEPATH, '/3_PLS/mean_data/',ID{i},'_nback_', VOX, 'mm_BfMRIsessiondata.mat']);%this loads a subject's sessiondata file.
   % intialize cond specific scan count for populating cond_data
   clear count cond_data block_scan coeff block scores Dimensions EXPLAINED;
   for cond = 1:numel(conditions)
@@ -74,16 +73,14 @@ clear a;
     end
     
     dst_run = 0;
-      
-   
-        % load nifti file for this run
-      fname = ([NIFTIPATH, ID{i}, '/C', ID{i}, '_nback_FEAT_detrend_filt_FIX_MNI2mm.nii.gz']);
+
+      % load nifti file for this run
+      fname = ([NIFTIPATH, ID{i}, '/', ID{i}, '_nback_FEAT_detrend_filt_FIX_MNI2mm.nii.gz']);
       nii = load_nii(fname); %(x by y by z by time)
       img = double(reshape(nii.img,[],size(nii.img,4)));% 4 here refers to 4th dimension in 4D file....time.
       img = img(st_coords,:);%this command constrains the img file to only use final_coords, which is common across subjects.
 
       clear nii;
- 
       
       dst_run = dst_run + 1;
 
@@ -151,18 +148,16 @@ clear a;
       end
    
 %% save individual .mats
-%save([SAVEPATH, 'C', ID{i}, 'PCAcorr_dim_spatial.mat'], 'Dimensions', 'coeff', 'EXPLAINED', 'scores');%note that EXPLAINED here is from typical, unrotated solution. 
-save([SAVEPATH, 'C', ID{i}, 'PCAcorr_dim_temporal.mat'], 'Dimensions', 'coeff', 'EXPLAINED', 'scores');%note that EXPLAINED here is from typical, unrotated solution. 
+save([SAVEPATH, ID{i}, 'PCAcorr_dim_temporal.mat'], 'Dimensions', 'coeff', 'EXPLAINED', 'scores');%note that EXPLAINED here is from typical, unrotated solution. 
 disp (['saved to: ', SAVEPATH, ID{i}]);
      
 end
-% 
+
 for i=1: length(ID)
-   % load ([SAVEPATH, 'C', ID{i}, 'PCAcorr_dim_spatial.mat'], 'Dimensions');
-    load ([SAVEPATH, 'C', ID{i}, 'PCAcorr_dim_temporal.mat'], 'Dimensions');
+    load ([SAVEPATH,  ID{i}, 'PCAcorr_dim_temporal.mat'], 'Dimensions');
     dimensionality(i, :)=Dimensions;
 end
-%save([SAVEPATH, 'N181_PCAcorr_dimensionality_spatial.mat'], 'dimensionality');
+
 save([SAVEPATH, 'N181_PCAcorr_dimensionality_temporal.mat'], 'dimensionality');
 
 end

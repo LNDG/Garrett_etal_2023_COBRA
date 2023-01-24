@@ -16,6 +16,6 @@ source /etc/fsl/5.0/fsl.sh
 
 cd ${workingDIR}/scripts/1-5_nback/6_FIX
 
-fix -t Training_COBRA_n43 $TrainingSetCOBRA #when working on the server, make sure to take a path to fix that points to the server-version of fix and not to the cluster-version!!!!
+fix -t Training_COBRA_n43 $TrainingSetCOBRA 
 
 #output: Training_COBRA_n43.RData and folder Training_COBRA_n43/

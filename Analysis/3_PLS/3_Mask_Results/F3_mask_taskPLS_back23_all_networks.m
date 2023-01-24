@@ -1,10 +1,8 @@
 %% Mask wholebrain task PLS with all nets
-
 addpath('/toolboxes/preprocessing_tools/')
 addpath('/toolboxes/NIFTI_toolbox/')
 
 
-clear all
 BASEPATH = 'BASE';
 SAVEPATH = [BASEPATH,'/3_PLS/SD_2mm/taskPLS_N152_results_masked/'];
 

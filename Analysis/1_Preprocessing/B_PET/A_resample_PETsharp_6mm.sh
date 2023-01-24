@@ -4,14 +4,14 @@
 # and save in 6mmREG subdirctory
 
 
-#cd BASEPAH
+cd BASEPAH
 
 #IDs - all RAW niftis
 IDs==$(awk -F "\"*,\"*" '{print $1}' ${WD}/SharableData/SharedData_Garrett_etal_Neuron_FINAL.csv)
 
 #cd ..
 #mkdir -p 6mmMNI/
-cd /Volumes/LNDG/COBRA/imaging_files/PETSharp/
+cd /imaging_files/PETSharp/
 
 for id in $IDs; do
 	

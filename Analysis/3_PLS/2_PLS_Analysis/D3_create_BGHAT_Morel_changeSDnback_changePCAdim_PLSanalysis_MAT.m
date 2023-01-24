@@ -16,19 +16,20 @@ BGHAT_Morel=S_load_nii_2d([MASKPATH, 'BGHAT_Morel_combined.nii']);
 BGHAT_Morel_st_coords=find(BGHAT_Morel(st_coords)); %
 BGHAT_Morel_orig_coords=intersect(st_coords, find(BGHAT_Morel));
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% calculate change in PCAdim (3-2) within BGHAT/Morel network %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 load([BASEPATH'/toolboxes/PLS/templates/behav_BfMRIanalysis.mat']); %load MAT template 
 for i=1:length(ID)
-    load([BASEPATH, '/Dimensionality_nback/temporal_PCA/BGHAT_Morel/C', ID{i}, '_PCAdim_temporal_BGHAT_Morel.mat'], 'Dimensions');
+    load([BASEPATH, '/4_PCA_Dimensionality/temporal_PCA/BGHAT_Morel/C', ID{i}, '_PCAdim_temporal_BGHAT_Morel.mat'], 'Dimensions');
     change32_tempPCAdim(i)=Dimensions(1, 3)-Dimensions(1, 2); %change score: 3-2back
     clear Dimensions    
 end
 
 save([BASEPATH, '/data/COBRA_N162_BGHAT_Morel_change32_tempPCA.mat'], 'change32_tempPCAdim', 'ID');
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% create PLS analysis file %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -43,7 +44,6 @@ batch_file.num_boot=bootstrap;
 batch_file.num_perm=permutations; 
 num_cond=length(find(batch_file.selected_cond)); 
 num_subj=length(ID);
-
 
 for i=1:num_subj
     batch_file.group_files{1, 1}{i, 1} = (['SD_C', ID{i}, '_2mm_BGHAT_Morel_BfMRIsessiondata.mat']);

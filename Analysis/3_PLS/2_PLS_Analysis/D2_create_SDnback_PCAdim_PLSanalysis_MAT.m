@@ -2,20 +2,18 @@
 
 BASEPATH='BASE';
 DATAPATH='DATA';
-
 PLSPATH=([BASEPATH, '/3_PLS/']);
 
-% IDs
+%IDs
 ID = readtable("/SharableData/SharedData_Garrett_etal_Neuron_FINAL.csv"); ID = table2array(ID(:,1));
 
 %for masking the  dimensionality values
-% mask_181=ismember(ID181, ID);
-
+%mask_181=ismember(ID181, ID);
 load([BASEPATH, '/toolboxes/PLS_batch_matrix_input_savev7.3/templates/behav_BfMRIanalysis.mat']); %load MAT template 
 
 %load PCAdim
 %temporal
-load([DATAPATH, '/N181_PCAcorr_dimensionality_temporal.mat']);
+load([BASEPATH, '/4_PCA_Dimensionality/N181_PCAcorr_dimensionality_temporal.mat']);
 
 permutations=1000; 
 bootstrap=1000; 
@@ -41,8 +39,8 @@ for k=1:num_cond
 end
 
 batch_file.behavdata=behav_values; %PCAdim
-% %temporal
- batch_file.behavname={'temporalPCAdim'};
- save([PLSPATH, 'SD_2mm/behavPLS_COBRA_N163_SDBOLDnback_temporalPCAdim_', num2str(permutations), 'P', num2str(bootstrap), 'B_BfMRIanalysis.mat'], 'batch_file');
+%temporal
+batch_file.behavname={'temporalPCAdim'};
+ave([PLSPATH, 'SD_2mm/behavPLS_COBRA_N163_SDBOLDnback_temporalPCAdim_', num2str(permutations), 'P', num2str(bootstrap), 'B_BfMRIanalysis.mat'], 'batch_file');
 
 

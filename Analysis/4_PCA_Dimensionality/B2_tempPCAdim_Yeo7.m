@@ -1,20 +1,19 @@
 D_3_tempPCAdim_Yeo7
 
 %% IDs
-%ID 156, '001','003','006',
-ID={'001','003','006','007','008','009','010','013','014','015','016','017','018','019','021','022','024','025','027','028','029','030','032','034','035','038','040','041','043','045','046','049','050','051','052','053','056','057','058','059','060','061','063','064','065','066','067','068','069','071','072','073','075','079','080','081','082','084','085','087','090','091','092','093','094','095','097','099','104','105','106','107','108','109','110','112','114','116','117','118','119','120','121','122','123','126','127','130','131','133','134','135','136','137','138','139','140','143','144','146','148','149','150','152','153','154','155','156','158','159','160','161','162','163','164','165','168','169','170','172','173','174','176','177','178','180','181','183','184','185','186','188','190','191','192','193','194','195','196','197','198','199','200','201','203','204','206','208','210','211','212','213','214','216','217','219'};
+ID = readtable("/SharableData/SharedData_Garrett_etal_Neuron_FINAL.csv"); ID = table2array(ID(:,1));
 
 BASEPATH='BASE';
 
 %NIIPATH=([BASEPATH, 'imaging_files/nback/preproc/']);
-PLSPATH=([BASEPATH, 'Paper1_2018/PLS_nback/SD_2mm/']);
-MASKPATH=([BASEPATH,'/COBRA_masks-selected/Yeo7/net/']);
+PLSPATH=([BASEPATH, '/3_PLS/SD_2mm/']);
+MASKPATH=([BASEPATH,'/1_Preprocessing/Masks/Yeo7/net/']);
 
 %PLSPATH = ([BASEPATH,'data/mri+PETSharp/B_analyses/Paper1_2018/PLS_nback/SD_2mm/']);
 
 %% create mask
 % load task PLS
-load([PLSPATH, 'SD_C200_BfMRIsessiondata.mat'],'st_coords'); %load st_coords
+load([PLSPATH, 'SD_BfMRIsessiondata.mat'],'st_coords'); %load st_coords
 
 network_names={'net1_Yeo2011_7Networks_MNI152_FreeSurferConformed2mm_LiberalMask.nii', 'net2_Yeo2011_7Networks_MNI152_FreeSurferConformed2mm_LiberalMask.nii', 'net3_Yeo2011_7Networks_MNI152_FreeSurferConformed2mm_LiberalMask.nii', 'net4_Yeo2011_7Networks_MNI152_FreeSurferConformed2mm_LiberalMask.nii', 'net5_Yeo2011_7Networks_MNI152_FreeSurferConformed2mm_LiberalMask.nii', 'net6_Yeo2011_7Networks_MNI152_FreeSurferConformed2mm_LiberalMask.nii', 'net7__Yeo2011_7Networks_MNI152_FreeSurferConformed2mm_LiberalMask.nii'};
 for k=1:length(network_names)
@@ -28,8 +27,8 @@ end
 
 modality='temporal';
 
-SAVEPATH = ([BASEPATH,'Paper1_2018/Dimensionality_nback/', modality, '_PCA/Yeo/']);
-NIFTIPATH=([BASEPATH,'preproc_nback/preproc/C']);
+SAVEPATH = ([BASEPATH,'4_PCA_Dimensionality/', modality, '_PCA/Yeo/']);
+NIFTIPATH=([BASEPATH,'1_Preprocessing/data/']);
 VOX='2';
 conditions = {'back1','back2','back3'};%set all relevant condition names
 
@@ -40,7 +39,7 @@ for i=1:length(ID)
 
     
       clear a;
-      a = load([BASEPATH, '/PLS_nback/scripts/mean_data/C',ID{i},'_nback_', VOX, 'mm_BfMRIsessiondata.mat']);%this loads a subject's sessiondata file.
+      a = load([BASEPATH, '/3_PLS/mean_data/',ID{i},'_nback_', VOX, 'mm_BfMRIsessiondata.mat']);%this loads a subject's sessiondata file.
 
       % intialize cond specific scan count for populating cond_data
       clear count cond_data block_scan coeff block scores Dimensions EXPLAINED;
@@ -92,7 +91,7 @@ for i=1:length(ID)
    
       % load nifti file for 'this run
       %fname = ([a.session_info.run(run).data_path, '/', a.session_info.run(run).data_files{1}, '.gz']);
-      fname = ([NIFTIPATH, ID{i}, '/C', ID{i}, '_nback_FEAT_detrend_filt_FIX_MNI2mm.nii.gz']);
+      fname = ([NIFTIPATH, ID{i}, '/', ID{i}, '_nback_FEAT_detrend_filt_FIX_MNI2mm.nii.gz']);
       nii = load_nii(fname); %(x by y by z by time)
       
       img = double(reshape(nii.img,[],size(nii.img,4)));% 4 here refers to 4th dimension in 4D file....time.
@@ -157,7 +156,7 @@ for i=1:length(ID)
     
     end
         
-    save([SAVEPATH, 'C', ID{i}, '_PCAdim_temp_Yeo7.mat'], 'PCAdim_networks', 'Var_explained_1stfactor', 'network_names');%note that EXPLAINED here is from typical, unrotated solution. 
-    disp(['saved as ', SAVEPATH, 'C', ID{i}, '_PCAdim_temp__Yeo7.mat']);
+    save([SAVEPATH, ID{i}, '_PCAdim_temp_Yeo7.mat'], 'PCAdim_networks', 'Var_explained_1stfactor', 'network_names');%note that EXPLAINED here is from typical, unrotated solution. 
+    disp(['saved as ', SAVEPATH, ID{i}, '_PCAdim_temp__Yeo7.mat']);
 
 end

@@ -1,11 +1,9 @@
 function B_PLS_filemaker_COBRA
-%% 
 %% creates batchfiles for PLS
-%%add these to workingpath
+%add these to workingpath
 % -m PLS_filemaker_COBRA -a /scripts/toolboxes/pls -a /scripts/toolboxes/parfor_progress
 
 %% Paths
-
 BASEPATH = 'DATAPATH';
 VOX = '2';
 ID = readtable("/SharableData/SharedData_Garrett_etal_Neuron_FINAL.csv"); ID = table2array(ID(:,1));

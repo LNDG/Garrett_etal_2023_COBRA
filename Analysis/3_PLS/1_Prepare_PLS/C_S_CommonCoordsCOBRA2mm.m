@@ -1,6 +1,6 @@
 %% creates a mat-file with common coords that is used as a mask for the PLS input
 
-% /opt/matlab/R2014b/bin/mcc -m S_CommonCoordsCOBRA2mm -a /scripts/toolboxes/pls -a /scripts/toolboxes/NIFTI_toolbox
+% /opt/matlab/R2014b/bin/mcc -m S_CommonCoordsCOBRA2mm -a /toolboxes/pls -a /toolboxes/NIFTI_toolbox
 
 %Create a matrix of common cordinats of a sample
 %   Detailed explanation goes here
@@ -43,10 +43,8 @@ for i = 1:numel(IDlist)
     
     %resulting a matrix of intersecting coordinats over all subjects
     common_coords=intersect(common_coords,subj_coords);
-  
     disp ([IDlist{i}, ': added to common coords']);
-  
-  
+
    % Error log    
    catch ME
        warning(['error with subject ', IDlist{i}]);

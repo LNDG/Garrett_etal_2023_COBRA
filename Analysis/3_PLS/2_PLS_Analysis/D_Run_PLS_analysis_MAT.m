@@ -1,6 +1,4 @@
-function Run_PLS_analysis_MAT(PLSPATH, textfile)
-%% 
-
+function D_Run_PLS_analysis_MAT(PLSPATH, textfile)
 %runs PLS analysis from mat-file
 %% Paths
 
@@ -8,7 +6,6 @@ BASEPATH = 'BASE';
 PLSPATH = ([BASEPATH, '/3_PLS/']);
 
 %% prep
-
 cd (PLSPATH);
 permutations=1000; 
 bootstrap=1000; 

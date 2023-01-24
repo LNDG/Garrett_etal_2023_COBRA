@@ -9,8 +9,6 @@ BD=BASEDIR
 # Set the working directory for the current project
 WD=${BD}/imaging_files/nback/preproc
 
-
-
 #IDs
 subjectID=$(awk -F "\"*,\"*" '{print $1}' ${WD}/SharableData/SharedData_Garrett_etal_Neuron_FINAL.csv)
 

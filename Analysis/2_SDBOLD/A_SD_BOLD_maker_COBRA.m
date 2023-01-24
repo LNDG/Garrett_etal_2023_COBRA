@@ -4,8 +4,6 @@ function A_SD_BOLD_maker_COBRA( )
 
 % IDs
 ID = readtable("/SharableData/SharedData_Garrett_etal_Neuron_FINAL.csv"); ID = table2array(ID(:,1));
-
-
 NVal = num2str(length(ID));
 BASEPATH = 'BASE';
 VOX='2';
@@ -14,8 +12,6 @@ VOX='2';
 % %common coords. We first load the MNI template, already GM masked, and go from
 % %there. Subject files MUST BE IN MNI space at this point!
 load([DATAPATH, '/2mm_commoncoordsN181.mat'], 'common_coords');
-
-
 
 %% Enable when testing/if running as interactive
 addpath(genpath('/toolboxes/NIFTI_toolbox'));
