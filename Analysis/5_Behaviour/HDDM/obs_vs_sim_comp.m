@@ -1,12 +1,12 @@
 %% quantile prob plots of observed vs simulated data
 
-% simdata = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/data_simulated_fullbiasmodel.csv');
-% obsdata = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/data_observed_fullbiasmodel.csv');
+% simdata = readtable('/HDDM/123back_bias_novelvsfam/data/data_simulated_fullbiasmodel.csv');
+% obsdata = readtable('/HDDM/123back_bias_novelvsfam/data/data_observed_fullbiasmodel.csv');
 
 % simdata = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/data_simulated_basicmodel.csv');
 % obsdata = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/data_observed_basicmodel.csv');
 
-PREIN = '/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/';
+PREIN = '/HDDM/123back_bias_novelvsfam/data/';
 modelnames = {'avt + dc + z model'  'avt model'  'avt + z model' 'avt + dc model' };
 model_filenames = {'fullbiasmodel.csv', 'basicmodel.csv', 'biasmodel_zonly.csv', 'biasmodel_dconly.csv' };
 % DIC
@@ -194,7 +194,7 @@ end
 
 % legend off
 if SAV
-  PREOUT = '/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/plots_quantile_prob';
+  PREOUT = '/HDDM/123back_bias_novelvsfam/data/plots_quantile_prob';
   saveas(f, fullfile(PREOUT, sprintf('Quantprob_%dbins_%s.pdf', nbins, simdat_plottype )))
   saveas(f, fullfile(PREOUT, sprintf('Quantprob_%dbins_%s.png', nbins, simdat_plottype )))
 end

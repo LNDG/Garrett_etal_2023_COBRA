@@ -1,5 +1,5 @@
 %% 1st HDDM, 4 low-dprime subjects removed
-rub = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/gelman_rubin_vals.csv');
+rub = readtable('/HDDM/123back_bias_novelvsfam/data/gelman_rubin_vals.csv');
 
 paramsoi = {'a(1)' 'v(1)' 't(1)' 'z(1)' 'dc(1)' 'a(2)' 'v(2)' 't(2)' 'z(2)' 'dc(2)' 'a(3)' 'v(3)' 't(3)' 'z(3)' 'dc(3)'  }
 all(rub.Var2(ismember(rub.Var1, paramsoi),:) < 1.1)
@@ -20,7 +20,7 @@ abovethreshold = rub(rub.Var2 > 1.1,:)
 badsubj = [27 56 112 126] % subj_idx, run after removing 4 subj with d' < 1 at 1back 
 
 % find out COBRAIDS of the subj_idx with too high G-R
-COBRA_DDMdata_lowdprimedropped = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_lowdprimedropped.csv');
+COBRA_DDMdata_lowdprimedropped = readtable('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_lowdprimedropped.csv');
 
 badsubj_COBRAIDs=[];
 for ib = 1:length(badsubj)
@@ -31,7 +31,7 @@ badsubj_COBRAIDs
 
 %% 2nd HDDM, 4 dprime and 4 G-R subjects removed
 
-rub = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/gelman_rubin_vals_dprimedropped_R-Gdropped.csv');
+rub = readtable('/HDDM/123back_bias_novelvsfam/data/gelman_rubin_vals_dprimedropped_R-Gdropped.csv');
 
 vals = rub.Var2(2:end,:);
 close all
@@ -50,7 +50,7 @@ badsubj = [108 122] % subj_idx, run after removing 4 subj with d' < 1 at 1back
 
 % find out COBRAIDS of the subj_idx with too high G-R
 COBRA_DDMdata_lowdprimedropped = ...
-  readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_lowdprimedropped_R-Gdropped.csv');
+  readtable('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_lowdprimedropped_R-Gdropped.csv');
 
 badsubj_COBRAIDs=[];
 for ib = 1:length(badsubj)
@@ -61,7 +61,7 @@ badsubj_COBRAIDs
 
 %% 3rd HDDM, 4 dprime, 4 G-R subjects + 2 more G-R subj removed
 
-rub = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/gelman_rubin_vals_dprimedropped_R-Gdropped2.csv');
+rub = readtable('/HDDM/123back_bias_novelvsfam/data/gelman_rubin_vals_dprimedropped_R-Gdropped2.csv');
 
 paramsoi = {'a(1)' 'v(1)' 't(1)' 'z(1)' 'dc(1)' 'a(2)' 'v(2)' 't(2)' 'z(2)' 'dc(2)' 'a(3)' 'v(3)' 't(3)' 'z(3)' 'dc(3)'  }
 all(rub.Var2(ismember(rub.Var1, paramsoi),:) < 1.1)
@@ -80,11 +80,11 @@ title('gelman rubin vals ZOOMED')
 saveas(f,'GelmanRubin_hist2.png')
 
 abovethreshold = rub(rub.Var2 > 1.1,:)
-badsubj = [92] % subj_idx, 1 subj @ 1.1. yay
+badsubj =  % subj_idx, 1 subj @ 1.1. yay
 
 % find out COBRAIDS of the subj_idx with too high G-R
 COBRA_DDMdata_lowdprimedropped = ...
-  readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime_and_gelman_rubin2.csv');
+  readtable('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime_and_gelman_rubin2.csv');
 
 badsubj_COBRAIDs=[];
 for ib = 1:length(badsubj)
@@ -95,7 +95,7 @@ badsubj_COBRAIDs
 
 %% HDDM N152, 15 chains
 
-rub = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/gelman_rubin_vals_drop_lowdprime.csv');
+rub = readtable('/HDDM/123back_bias_novelvsfam/data/gelman_rubin_vals_drop_lowdprime.csv');
 
 paramsoi = {'a(1)' 'v(1)' 't(1)' 'z(1)' 'dc(1)' 'a(2)' 'v(2)' 't(2)' 'z(2)' 'dc(2)' 'a(3)' 'v(3)' 't(3)' 'z(3)' 'dc(3)'};
 rub(ismember(rub.Var1, paramsoi),:) 
@@ -119,7 +119,7 @@ badsubj = [26 55 105 109 123] % subj_idx, 1 subj @ 1.1. yay
 
 % find out COBRAIDS of the subj_idx with too high G-R
 COBRA_DDMdata_lowdprimedropped = ...
-  readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv');
+  readtable('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv');
 
 badsubj_COBRAIDs=[];
 for ib = 1:length(badsubj)

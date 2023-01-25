@@ -1,6 +1,6 @@
 
 %% paths
-addpath(genpath('/Users/kloosterman/Documents/GitHub/COBRA-HDDM'))
+addpath(genpath('/5_Behaviour/HDDM'))
 
 
 %%

@@ -3,19 +3,19 @@ function behav = plotSDT_DDMpars()
 addpath('/Users/kloosterman/Dropbox/tardis_code/MATLAB/tools/custom_tools/plotting/plotSpread')
 
 % N=156, HDDM1 
-% csv = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata.csv');
-% ddm = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/params_HDDMbias.csv');
-% rub = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/gelman_rubin_vals.csv');
+% csv = readtable('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata.csv');
+% ddm = readtable('/HDDM/123back_bias_novelvsfam/data/params_HDDMbias.csv');
+% rub = readtable('/HDDM/123back_bias_novelvsfam/data/gelman_rubin_vals.csv');
 
 % % % N=152, HDDM2, has 4 subjects with G-R above 1.1
-% csv = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv');
-% ddm = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/params__biasmodel.csv');
+% csv = readtable('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv');
+% ddm = readtable('/HDDM/123back_bias_novelvsfam/data/params__biasmodel.csv');
 
 % % % % N=152, HDDM2, 15 chains
-% csv = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv');
-% ddm = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/params__biasmodel_drop_lowdprime.csv');
+% csv = readtable('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv');
+% ddm = readtable('/HDDM/123back_bias_novelvsfam/data/params__biasmodel_drop_lowdprime.csv');
 
-PREIN = '/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/';
+PREIN = '/HDDM/123back_bias_novelvsfam/data/';
 cd(PREIN)
 time = ''; % early_ late_
 % % % % N=152, only early trials in block
@@ -23,23 +23,23 @@ csv = readtable(fullfile(PREIN, 'COBRA_DDMdata_drop_lowdprime.csv'));
 ddm = readtable(fullfile(PREIN, sprintf('params_run_biasmodel_%sdrop_lowdprime.csv', time)));
 
 % % % % % N=152, only early trials in block
-% csv = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv');
-% ddm = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/params_run_biasmodel_early_drop_lowdprime.csv');
+% csv = readtable('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv');
+% ddm = readtable('/HDDM/123back_bias_novelvsfam/data/params_run_biasmodel_early_drop_lowdprime.csv');
 
 % % % % N=152, only late trials in block
-% csv = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv');
-% ddm = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/params_run_biasmodel_late_drop_lowdprime.csv');
+% csv = readtable('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv');
+% ddm = readtable('/HDDM/123back_bias_novelvsfam/data/params_run_biasmodel_late_drop_lowdprime.csv');
 
 
 
 % N = 148, has 2 more subjects with G-R above 1.1
-% csv = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_lowdprimedropped_R-Gdropped.csv');
-% ddm = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/params__biasmodel_dprimedropped_R-Gdropped.csv');
+% csv = readtable('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_lowdprimedropped_R-Gdropped.csv');
+% ddm = readtable('/HDDM/123back_bias_novelvsfam/data/params__biasmodel_dprimedropped_R-Gdropped.csv');
 
 % % N = 146, all good
-% csv = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime_and_gelman_rubin2.csv');
-% ddm = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/params__biasmodel_dprimedropped_R-Gdropped2.csv');
-% rub = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/gelman_rubin_vals_dprimedropped_R-Gdropped2.csv');
+% csv = readtable('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime_and_gelman_rubin2.csv');
+% ddm = readtable('/HDDM/123back_bias_novelvsfam/data/params__biasmodel_dprimedropped_R-Gdropped2.csv');
+% rub = readtable('/HDDM/123back_bias_novelvsfam/data/gelman_rubin_vals_dprimedropped_R-Gdropped2.csv');
 
 
 disp 'remove NaN trials'

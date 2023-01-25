@@ -9,7 +9,7 @@ else
   ntrials = [81 72 63];
 end
 
-cd '/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/Niels_edits';
+cd '/HDDM/123back_bias_novelvsfam/Niels_edits';
 
 block_onsets = [0 44 66 142 164 197 240 262 295; ...%1back
  11 33 88 109 131 186 229 284 306;  ... %2back
@@ -29,7 +29,7 @@ block_order_sorted = [block_order_sorted trialind];
 block_order_sorted = block_order_sorted(ind,:); % trialinds sorted wrt nback, just like data
 
 %load table data. Data were previously saved in .mat after loading COBRA_HDDM_data.xlsx
-load('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/COBRA_HDDM_data_n162_June26_2018.mat');
+load('/HDDM/123back_bias_novelvsfam/COBRA_HDDM_data_n162_June26_2018.mat');
 %convert to cell for manipulation
 data = table2cell(COBRAHDDMdata_n162);
 

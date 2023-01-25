@@ -1,5 +1,5 @@
 function EM_makeStimcodingCSV()
-csv = readtable('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias/COBRA_HDDM_May26_2021_response-button_press_incsubj.csv');
+csv = readtable('/HDDM/123back_bias/COBRA_HDDM_May26_2021_response-button_press_incsubj.csv');
 % go back to response indicating actual button
 csv.Properties.VariableNames = {'subj_idx' 'COBRA_ID' 'stim' 'rt' 'accuracy', 'response'};
 
