@@ -1,8 +1,8 @@
 function behav = plotSDT_DDMpars_early_vs_late()
 
-addpath('/Users/kloosterman/Dropbox/tardis_code/MATLAB/tools/custom_tools/plotting/plotSpread')
+addpath('/tardis_code/MATLAB/tools/custom_tools/plotting/plotSpread')
 
-PREIN = '/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/';
+PREIN = '/HDDM/123back_bias_novelvsfam/data/';
 cd(PREIN)
 time = {'early' 'late'};
 timename = {'early_no_z' 'late_no_z'};

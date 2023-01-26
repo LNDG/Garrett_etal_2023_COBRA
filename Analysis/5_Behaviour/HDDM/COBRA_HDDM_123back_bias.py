@@ -20,15 +20,15 @@ import platform
 from kabuki.analyze import gelman_rubin
 
 if platform.system() == 'Darwin':
-    path = '/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data'
+    path = '/HDDM/123back_bias_novelvsfam/data'
 elif platform.system() == 'Linux':
-    path = '/home/mpib/kloosterman/MATLAB/COBRA/123back_bias_novelvsfam/data'
+    path = '/123back_bias_novelvsfam/data'
 
 os.chdir(path)
 
-# csvfile = '/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata.csv'
+# csvfile = '/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata.csv'
 csvfile = os.path.join(path, 'COBRA_DDMdata_drop_lowdprime.csv')
-# csvpath = '/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias/COBRA_HDDM_May26_2021_response-button_press_incsubj_stimcoding.csv'
+# csvpath = '/HDDM/123back_bias/COBRA_HDDM_May26_2021_response-button_press_incsubj_stimcoding.csv'
 data = hddm.load_csv(csvfile)
 #data.head(10)
 
@@ -49,7 +49,7 @@ plt.show()
 # run chains in parallel inc. bias models
 def run_basicmodel(id):
     import hddm
-    data = hddm.load_csv('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
+    data = hddm.load_csv('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
     data = data.dropna()
     data = data[data.rt > 0.2] # drop too fast RT's
     m = hddm.HDDMStimCoding(data, stim_col='stimulus', split_param='v', drift_criterion=False, bias=False, 
@@ -60,7 +60,7 @@ def run_basicmodel(id):
 
 def run_biasmodel(id):
     import hddm
-    data = hddm.load_csv('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
+    data = hddm.load_csv('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
     data = data.dropna()
     data = data[data.rt > 0.2] # drop too fast RT's
     m = hddm.HDDMStimCoding(data, stim_col='stimulus', split_param='v', drift_criterion=True, bias=True, 
@@ -79,27 +79,27 @@ def run_biasmodel_dconly(id):
                             depends_on={'v':'stim', 'a':'stim', 't':'stim', 'dc':'stim' }, p_outlier=0.05,) # , include='all'
     m.find_starting_values()
     # m.sample(5000, burn=2500, dbname='/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/db_bias%i'%id, db='pickle')
-    m.sample(5000, burn=2500, dbname='/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/db_bias%i'%id, db='pickle')
+    m.sample(5000, burn=2500, dbname='/HDDM/123back_bias_novelvsfam/data/db_bias%i'%id, db='pickle')
     return m
 
 def run_biasmodel_zonly(id):
     import hddm
-    data = hddm.load_csv('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
+    data = hddm.load_csv('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
     data = data.dropna()
     data = data[data.rt > 0.2] # drop too fast RT's
     m = hddm.HDDMStimCoding(data, stim_col='stimulus', split_param='v', drift_criterion=False, bias=True, 
                             depends_on={'v':'stim', 'a':'stim', 't':'stim', 'z':'stim' }, p_outlier=0.05,) # , include='all'
     m.find_starting_values()
-    m.sample(5000, burn=2500, dbname='/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/db_bias%i'%id, db='pickle')
+    m.sample(5000, burn=2500, dbname='/HDDM/123back_bias_novelvsfam/data/db_bias%i'%id, db='pickle')
     return m
 
 def run_biasmodel_early(id):
     import hddm 
     import platform
     if platform.system() == 'Darwin':
-        data = hddm.load_csv('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
+        data = hddm.load_csv('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
     else:
-        data = hddm.load_csv('/home/mpib/kloosterman/MATLAB/COBRA/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
+        data = hddm.load_csv('123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
                              
     data = data.dropna()
     data = data[data.early==1]
@@ -107,7 +107,7 @@ def run_biasmodel_early(id):
     m = hddm.HDDMStimCoding(data, stim_col='stimulus', split_param='v', drift_criterion=True, bias=True, 
                             depends_on={'v':'stim', 'a':'stim', 't':'stim', 'dc':'stim', 'z':'stim' }, p_outlier=0.05,) # , include='all'
     m.find_starting_values()
-    m.sample(1000, burn=250, dbname='/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/db_bias%i'%id, db='pickle')
+    m.sample(1000, burn=250, dbname='/HDDM/123back_bias_novelvsfam/data/db_bias%i'%id, db='pickle')
     # m.sample(1000, burn=250, dbname= os.path.join(path, 'db_bias%i'%id), db='pickle')
     return m
 
@@ -115,9 +115,9 @@ def run_biasmodel_late(id):
     import hddm 
     import platform
     if platform.system() == 'Darwin':
-        data = hddm.load_csv('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
+        data = hddm.load_csv('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
     else:
-        data = hddm.load_csv('/home/mpib/kloosterman/MATLAB/COBRA/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
+        data = hddm.load_csv('123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
                              
     data = data.dropna()
     data = data[data.late==1]
@@ -133,9 +133,9 @@ def run_biasmodel_early_no_z(id):
     import hddm 
     import platform
     if platform.system() == 'Darwin':
-        data = hddm.load_csv('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
+        data = hddm.load_csv('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
     else:
-        data = hddm.load_csv('/home/mpib/kloosterman/MATLAB/COBRA/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
+        data = hddm.load_csv('123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
                              
     data = data.dropna()
     data = data[data.early==1]
@@ -151,9 +151,9 @@ def run_biasmodel_late_no_z(id):
     import hddm 
     import platform
     if platform.system() == 'Darwin':
-        data = hddm.load_csv('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
+        data = hddm.load_csv('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
     else:
-        data = hddm.load_csv('/home/mpib/kloosterman/MATLAB/COBRA/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
+        data = hddm.load_csv('123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
                              
     data = data.dropna()
     data = data[data.late==1]
@@ -161,7 +161,7 @@ def run_biasmodel_late_no_z(id):
     m = hddm.HDDMStimCoding(data, stim_col='stimulus', split_param='v', drift_criterion=True, bias=False, 
                             depends_on={'v':'stim', 'a':'stim', 't':'stim', 'dc':'stim', }, p_outlier=0.05,) # , include='all'
     m.find_starting_values()
-    m.sample(1000, burn=250, dbname='/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/db_bias%i'%id, db='pickle')
+    m.sample(1000, burn=250, dbname='/HDDM/123back_bias_novelvsfam/data/db_bias%i'%id, db='pickle')
     # m.sample(1000, burn=250, dbname= os.path.join(path, 'db_bias%i'%id), db='pickle')
     return m
 
@@ -169,9 +169,9 @@ def run_biasmodel_middle(id):
     import hddm 
     import platform
     if platform.system() == 'Darwin':
-        data = hddm.load_csv('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
+        data = hddm.load_csv('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
     else:
-        data = hddm.load_csv('/home/mpib/kloosterman/MATLAB/COBRA/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
+        data = hddm.load_csv('123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
                              
     data = data.dropna()
     data = data[(data.early==1) & (data.late==1)]
@@ -179,19 +179,19 @@ def run_biasmodel_middle(id):
     m = hddm.HDDMStimCoding(data, stim_col='stimulus', split_param='v', drift_criterion=True, bias=True, 
                             depends_on={'v':'stim', 'a':'stim', 't':'stim', 'dc':'stim', 'z':'stim' }, p_outlier=0.05,) # , include='all'
     m.find_starting_values()
-    m.sample(1000, burn=250, dbname='/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/db_bias%i'%id, db='pickle')
+    m.sample(1000, burn=250, dbname='/HDDM/123back_bias_novelvsfam/data/db_bias%i'%id, db='pickle')
     # m.sample(1000, burn=250, dbname= os.path.join(path, 'db_bias%i'%id), db='pickle')
     return m
 
 def run_standardmodel(id):
     import hddm
-    data = hddm.load_csv('/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
+    data = hddm.load_csv('/HDDM/123back_bias_novelvsfam/data/COBRA_DDMdata_drop_lowdprime.csv')
     data = data.dropna()
     data = data[data.rt > 0.2] # drop too fast RT's
     m = hddm.HDDMStimCoding(data, stim_col='stimulus', split_param='v', drift_criterion=False, bias=False, 
                             depends_on={'v':'stim', 'a':'stim', 't':'stim'}, p_outlier=0.05,) # , include='all'
     m.find_starting_values()
-    m.sample(5000, burn=2500, dbname='/Users/kloosterman/Dropbox/PROJECTS/COBRA/hddm/123back_bias_novelvsfam/data/db_standard%i'%id, db='pickle')
+    m.sample(5000, burn=2500, dbname='/HDDM/123back_bias_novelvsfam/data/db_standard%i'%id, db='pickle')
     return m
 
 from IPython.parallel import Client
