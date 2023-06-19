@@ -1,1 +1,1 @@
-# Project repo for Garrett et al. 2022 COBRA
+# Project repo for Garrett et al. 2023 COBRA
